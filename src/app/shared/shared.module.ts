@@ -4,18 +4,14 @@ import { NbMenuModule, NbTimepickerModule } from '@nebular/theme';
 import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
 import { ThemeModule } from '../@theme/theme.module';
 import { FormsModule as ngFormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ModalCodeConfirmComponent } from './components/modal-code-confirm/modal-code-confirm.component';
 import { ModalConfirmComponent } from './components/modal-confirm/modal-confirm.component';
-import { ModalPaymentComponent } from './components/modal-payment/modal-confirm.component';
 import { NB_MODULES } from './exports/nb-modules';
-import { DateSettingsComponent } from './components/date-settings/date-settings.component';
+import { RequestCardComponent } from './components/request-card/request-card.component';
 
 @NgModule({
   declarations: [
+    RequestCardComponent,
     ModalConfirmComponent,
-    DateSettingsComponent,
-    ModalCodeConfirmComponent,
-    ModalPaymentComponent,
   ],
   imports: [
     ...NB_MODULES,
@@ -38,9 +34,8 @@ import { DateSettingsComponent } from './components/date-settings/date-settings.
     RecaptchaFormsModule,
 
     // components
+    RequestCardComponent,
     ModalConfirmComponent,
-    ModalCodeConfirmComponent,
-    DateSettingsComponent,
   ],
 })
 export class SharedModule {

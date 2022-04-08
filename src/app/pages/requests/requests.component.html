@@ -1,1 +1,17 @@
-<p>requests works!</p>
+<div></div>
+
+<ngx-request-card *ngFor="let req of requests"
+                  [request]="req"
+                  (onReq)="selectRequest($event)"
+                  [isSelected]="isRequestSelected(req)">
+</ngx-request-card>
+
+<div *ngIf="!!selectedRequests.length"
+     class="handle-button">
+  <button nbButton hero
+          status="primary"
+          size="giant"
+          shape="semi-round">
+    Обработать: {{ selectedRequests.length }}
+  </button>
+</div>

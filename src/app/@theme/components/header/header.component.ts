@@ -12,7 +12,6 @@ import { GlbUnsubscribe } from '../../../@core/glb-unsubscribe';
 import { LayoutService } from '../../../@core/utils';
 import { AuthService } from '../../../auth/auth.service';
 import { ModalConfirmComponent } from '../../../shared/components/modal-confirm/modal-confirm.component';
-import { ModalPaymentComponent } from '../../../shared/components/modal-payment/modal-confirm.component';
 import { User, UserService } from '../../../shared/services/user.service';
 import { environment } from '../../../../environments/environment';
 
@@ -87,11 +86,6 @@ export class HeaderComponent extends GlbUnsubscribe implements OnInit {
   public logout() {
     this.dialogService.open(ModalConfirmComponent, { context: { text: 'Вы уверены что хотите выйти?' } })
       .onClose.subscribe(action => action ? this.authService.logout() : '');
-  }
-
-  public openPaymentModal() {
-    this.dialogService.open(ModalPaymentComponent)
-      .onClose.subscribe();
   }
 
   private hideSidebarOnSmallDisplay() {
