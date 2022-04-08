@@ -3,10 +3,10 @@
   <nb-card-header>
     <div class="row">
       <div class="col-md-6">
-        {{request.city}}, {{request.institution}}
+        {{ request.city }}, {{request.institution}}
       </div>
       <div class="col-md-6 text-right">
-        {{status()}}, {{ request.createdAt | date :'short' }}
+        {{ status() }}, {{ request.createdAt | date :'short' }}
       </div>
     </div>
   </nb-card-header>
@@ -15,12 +15,14 @@
       {{ request.title }}
     </div>
 
-    {{request.description}}
+    {{ request.description }}
 
     <div class="mt-3">
       <button nbButton *ngFor="let tag of request.tags"
+              [class.selected-tag]="isTagSelected(tag)"
+              outline
               class="mr-2"
-              status="info"
+              status="primary"
               size="tiny"
               shape="round">
         {{ tag }}

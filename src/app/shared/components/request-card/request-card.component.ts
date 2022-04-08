@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Request } from '../../../pages/requests/requests.component';
 
 @Component({
@@ -10,8 +10,12 @@ export class RequestCardComponent implements OnInit {
 
   @Input() request: Request;
   @Input() isSelected: boolean = false;
+  @Input() selectedTags: string[] = [];
+
   @Output() onReq: EventEmitter<Request> = new EventEmitter<Request>();
-  constructor() { }
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
@@ -22,8 +26,22 @@ export class RequestCardComponent implements OnInit {
 
   public status(): string {
     switch (this.request.status) {
-      case 'done': return 'Выполнено';
-      case 'created': return 'Создано';
+      case 'done':
+        return 'Выполнено';
+      case 'created':
+        return 'Создано';
+      case 'reject':
+        return 'Отменено';
+      case 'inProgress':
+        return 'В обработке';
+      case 'readyToReview':
+        return 'Готово к проверке';
+      case 'review':
+        return 'Проверяется';
     }
+  }
+
+  public isTagSelected(tag: string): boolean {
+    return this.selectedTags.includes(tag);
   }
 }

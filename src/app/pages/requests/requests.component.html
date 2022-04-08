@@ -1,17 +1,51 @@
-<div></div>
+<div class="container">
+  <div class="h5">Жалобы</div>
 
-<ngx-request-card *ngFor="let req of requests"
-                  [request]="req"
-                  (onReq)="selectRequest($event)"
-                  [isSelected]="isRequestSelected(req)">
-</ngx-request-card>
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <button nbButton
+              outline
+              [class.selected-tag-red]="selectedStatus === 'created'"
+              (click)="selectStatus('created')"
+              status="danger"
+              size="small"
+              class="mr-2">
+        Не обработанно
+      </button>
 
-<div *ngIf="!!selectedRequests.length"
-     class="handle-button">
-  <button nbButton hero
-          status="primary"
-          size="giant"
-          shape="semi-round">
-    Обработать: {{ selectedRequests.length }}
-  </button>
+      <button nbButton
+              outline
+              [class.selected-tag-green]="selectedStatus === 'inProgress'"
+              (click)="selectStatus('inProgress')"
+              status="success"
+              size="small">
+        В процессе
+      </button>
+    </div>
+    <div class="col-md-6 text-right">
+      <nb-select multiple placeholder="Фильтр по тегам" [(ngModel)]="selectedTags">
+        <nb-option *ngFor="let tag of tags" [value]="tag">
+          {{ tag }}
+        </nb-option>
+      </nb-select>
+    </div>
+  </div>
+
+  <ngx-request-card *ngFor="let req of requests"
+                    [request]="req"
+                    [selectedTags]="selectedTags"
+                    [hidden]="isFilterByTags(req.tags) || isFilterByStatus(req.status)"
+                    (onReq)="selectRequest($event)"
+                    [isSelected]="isRequestSelected(req)">
+  </ngx-request-card>
+
+  <div *ngIf="!!selectedRequests.length"
+       class="handle-button">
+    <button nbButton hero
+            status="primary"
+            size="giant"
+            shape="semi-round">
+      Обработать: {{ selectedRequests.length }}
+    </button>
+  </div>
 </div>

@@ -42,4 +42,5 @@ export const NB_MODULES = [
   NbFormFieldModule,
   NbAlertModule,
   NbTabsetModule,
+  // NbTagModule,
 ];
