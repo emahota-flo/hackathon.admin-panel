@@ -1,0 +1,24 @@
+<form [formGroup]="confirmationForm"
+      (submit)="sendCode()">
+  <nb-card>
+    <nb-card-header>
+      Код подтверждения
+    </nb-card-header>
+    <nb-card-body>
+
+      <div class="form-group">
+        <label for="code" class="label">Код</label>
+        <input type="text" nbInput fullWidth id="code" placeholder="Введите код подтверждения" formControlName="code">
+      </div>
+
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton
+              [disabled]="confirmationForm.invalid"
+              status="success"
+              type="submit">
+        Отправить
+      </button>
+    </nb-card-footer>
+  </nb-card>
+</form>

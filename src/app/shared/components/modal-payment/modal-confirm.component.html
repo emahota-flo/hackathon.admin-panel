@@ -1,0 +1,29 @@
+<form [formGroup]="paymentForm">
+  <nb-card>
+    <nb-card-header>
+      Пополнить баланс
+    </nb-card-header>
+
+    <nb-card-body>
+
+      <h4 class="mb-0">{{user?.balance | currency:'RUB':' ':'1.0-0'}} RUB</h4>
+      <div class="subtitle mb-3">Текущий баланс</div>
+
+      <div class="form-group">
+        <label for="amount" class="label">Сумма пополнения</label>
+        <input type="number" nbInput fullWidth id="amount" placeholder="Введите сумму пополнения" formControlName="amount">
+      </div>
+    </nb-card-body>
+
+    <nb-card-footer>
+      <button nbButton
+              type="submit"
+              status="success"
+              [disabled]="paymentForm.invalid"
+              (click)="getPaymentUrl()">
+        Пополнить
+      </button>
+    </nb-card-footer>
+  </nb-card>
+
+</form>
