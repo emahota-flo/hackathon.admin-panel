@@ -11,6 +11,4 @@
 export const environment = {
   production: false,
   apiUrl: 'http://185.246.67.100/api/v1/',
-  siteKey: '6LfYIZUaAAAAABRTy-DHQnSBMjUmZ4QafjMUGyWt',
-  defaultTheme: 'default',
 };
