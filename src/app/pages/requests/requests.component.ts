@@ -1,20 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-
-export type RequestStatus = 'created' | 'inProgress' | 'readyToReview' | 'review' | 'done' | 'reject';
-export type RequestType = 'complaint' | 'reviews';
-
-export interface Request {
-  id: string;
-  type: RequestType;
-  status: RequestStatus;
-  tags: string[];
-  title: string;
-  description: string;
-  createdAt: Date;
-  updatedAt: Date;
-  city: string;
-  institution: string;
-}
+import { ActivatedRoute, Router } from '@angular/router';
+import { NbDialogService } from '@nebular/theme';
+import { ModalConfirmComponent } from '../../shared/components/modal-confirm/modal-confirm.component';
+import { RequestStatus, HumanRequest } from '../../shared/interfaces/request';
+import { RequestsService } from './requests.service';
 
 @Component({
   selector: 'ngx-requests',
@@ -23,72 +12,68 @@ export interface Request {
 })
 export class RequestsComponent implements OnInit {
 
-  public requests: Request[] = [
-    {
-      id: '1111111',
-      type: 'complaint',
-      status: 'created',
-      tags: ['Жалоба на скорость обслуживания'],
-      title: 'Жалоба на сотрудника',
-      description: 'Довожу до Вашего сведения, что на горячую линию обратился клиент (ФИО, тел. ) с жалобой на задержку выдачи результата.  Клиент обратился  в   ПЗ  для сдачи биоматериала на исследование «Коронавирус».   Клиент недоволен тем, что 13.05.2020 г. исследование  не было выполнено. Клиент считает, что лаборатория нарушает сроки выполнения исследования – 2 рабочих дня. Клиент просит разобраться и принять меры. Ждет   звонка администрации.',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      city: 'Краснодар',
-      institution: 'Краевая больница',
-    },
-    {
-      id: '2222222',
-      type: 'complaint',
-      status: 'inProgress',
-      tags: ['Жалоба на сотрудника', 'Некорректное общение', 'Оскорбления'],
-      title: 'Скорость обработки',
-      description: 'Довожу до Вашего сведения, что на горячую линию обратился клиент (ФИО, тел. ) с жалобой на задержку выдачи результата.  Клиент обратился  в   ПЗ  для сдачи биоматериала на исследование «Коронавирус».   Клиент недоволен тем, что 13.05.2020 г. исследование  не было выполнено. Клиент считает, что лаборатория нарушает сроки выполнения исследования – 2 рабочих дня. Клиент просит разобраться и принять меры. Ждет   звонка администрации.',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      city: 'Краснодар',
-      institution: 'Краевая больница',
-    },
-    {
-      id: '33333333',
-      type: 'complaint',
-      status: 'created',
-      tags: ['Некорректные результаты работы', 'Оскорбления'],
-      title: 'Качество обслуживания',
-      description: 'Довожу до Вашего сведения, что на горячую линию обратился клиент (ФИО, тел. ) с жалобой на задержку выдачи результата.  Клиент обратился  в   ПЗ  для сдачи биоматериала на исследование «Коронавирус».   Клиент недоволен тем, что 13.05.2020 г. исследование  не было выполнено. Клиент считает, что лаборатория нарушает сроки выполнения исследования – 2 рабочих дня. Клиент просит разобраться и принять меры. Ждет   звонка администрации.',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      city: 'Краснодар',
-      institution: 'Краевая больница',
-    },
-  ];
+  public requests: HumanRequest[] = [];
 
-  public selectedRequests: Request[] = [];
+  public selectedRequests: HumanRequest[] = [];
   public tags: string[] = [];
   public selectedTags: string[] = [];
   public selectedStatus: RequestStatus | null = null;
 
-  constructor() {
+  constructor(private reqService: RequestsService,
+              private router: Router,
+              private route: ActivatedRoute,
+              private dialogService: NbDialogService) {
   }
 
   ngOnInit(): void {
-    const tags = new Set();
-    this.requests.forEach((req: Request) => req.tags.forEach((tag) => tags.add(tag)));
-    this.tags = [...tags] as string[];
+    this.reqService.selectedRequests
+      .subscribe((reqs) => this.selectedRequests = reqs);
+
+    this.reqService.getRequests()
+      .subscribe((reqs: HumanRequest[]) => {
+        this.requests = reqs;
+
+        const tags = new Set();
+        this.requests.forEach((req: HumanRequest) => req.tags.forEach((tag) => tags.add(tag)));
+        this.tags = [...tags] as string[];
+      });
   }
 
-  public selectRequest(req: Request) {
-    if (!!this.selectedRequests.find(x => x.id === req.id)) {
-      this.selectedRequests = this.selectedRequests.filter(request => request.id !== req.id);
-    } else {
-      this.selectedRequests.push(req);
-    }
+  public selectRequest(req: HumanRequest) {
+    this.reqService.selectRequest(req);
   }
 
   public selectStatus(status: RequestStatus): void {
     this.selectedStatus === status ? this.selectedStatus = null : this.selectedStatus = status;
   }
 
-  public isRequestSelected(req: Request): boolean {
+  public onHandle() {
+    if (this.selectedRequests.some(r => r.status === 'created')) {
+      this.dialogService.open(ModalConfirmComponent, {
+        context: {
+          text: 'Взять себе в обработку новые заявки? Создано -> В обработке',
+        },
+      })
+        .onClose.subscribe(action => {
+        if (action) {
+          this.router.navigate(['handle'], { relativeTo: this.route }).then();
+        }
+      });
+    } else {
+      this.router.navigate(['handle'], { relativeTo: this.route }).then();
+    }
+  }
+
+  public clearFilters() {
+    this.selectedStatus = null;
+    this.selectedTags = [];
+    this.reqService.clearSelectedRequests();
+  }
+  /**
+   * UI functions
+   * */
+
+  public isRequestSelected(req: HumanRequest): boolean {
     return !!this.selectedRequests.find(x => x.id === req.id);
   }
 

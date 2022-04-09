@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { Request } from '../../../pages/requests/requests.component';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { HumanRequest } from '../../interfaces/request';
 
 @Component({
   selector: 'ngx-request-card',
@@ -8,11 +8,11 @@ import { Request } from '../../../pages/requests/requests.component';
 })
 export class RequestCardComponent implements OnInit {
 
-  @Input() request: Request;
+  @Input() request: HumanRequest;
   @Input() isSelected: boolean = false;
   @Input() selectedTags: string[] = [];
 
-  @Output() onReq: EventEmitter<Request> = new EventEmitter<Request>();
+  @Output() onReq: EventEmitter<HumanRequest> = new EventEmitter<HumanRequest>();
 
   constructor() {
   }

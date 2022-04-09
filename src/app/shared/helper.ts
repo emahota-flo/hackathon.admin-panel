@@ -5,14 +5,6 @@ export interface ErrorHandlerResponse {
   body: string;
 }
 
-export function getDateISOStringWithoutTimezone(date: Date): string {
-  if (!(date instanceof Date)) {
-    date = new Date(date);
-  }
-  const tzOffset = date.getTimezoneOffset() * 60000; // offset in milliseconds
-  return (new Date(+date - tzOffset)).toISOString().slice(0, -5);
-}
-
 export function errorHandler(err: HttpErrorResponse): ErrorHandlerResponse {
   const { error, status, message } = err;
   const errorStatus = status || error?.status;
@@ -39,11 +31,4 @@ export function errorHandler(err: HttpErrorResponse): ErrorHandlerResponse {
   }
 
   return response;
-}
-
-export function calculateSumByField(array: any[], field: string): number {
-  if (!array || !field) {
-    return 0;
-  }
-  return array.reduce((sum, value) => sum + parseFloat(value[field]), 0);
 }

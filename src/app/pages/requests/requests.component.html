@@ -1,8 +1,8 @@
 <div class="container">
-  <div class="h5">Жалобы</div>
+  <div class="h5">Список Заявок</div>
 
   <div class="row mb-3">
-    <div class="col-md-6">
+    <div class="col-md-6 mt-1">
       <button nbButton
               outline
               [class.selected-tag-red]="selectedStatus === 'created'"
@@ -18,8 +18,16 @@
               [class.selected-tag-green]="selectedStatus === 'inProgress'"
               (click)="selectStatus('inProgress')"
               status="success"
-              size="small">
+              size="small"
+              class="mr-2">
         В процессе
+      </button>
+      <button nbButton
+              outline
+              (click)="clearFilters()"
+              size="small">
+        Сбросить
+        <nb-icon [icon]="'funnel'"></nb-icon>
       </button>
     </div>
     <div class="col-md-6 text-right">
@@ -42,6 +50,7 @@
   <div *ngIf="!!selectedRequests.length"
        class="handle-button">
     <button nbButton hero
+            (click)="onHandle()"
             status="primary"
             size="giant"
             shape="semi-round">
