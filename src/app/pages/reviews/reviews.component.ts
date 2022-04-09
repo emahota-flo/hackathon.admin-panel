@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Review } from './reviews.interface';
+import { ReviewsService } from './reviews.service';
 
 @Component({
   selector: 'ngx-reviews',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReviewsComponent implements OnInit {
 
-  constructor() { }
+  public reviewGroups: Review[] = [];
 
-  ngOnInit(): void {
+  constructor(private reviewsService: ReviewsService,
+              private router: Router,
+              private route: ActivatedRoute) {
   }
 
+  ngOnInit(): void {
+    this.reviewsService.getReviewGroup()
+      .subscribe((reviewGroups) => this.reviewGroups = reviewGroups);
+  }
+
+  public onReview(review: Review) {
+    this.router.navigate([review.id], { relativeTo: this.route }).then();
+  }
 }

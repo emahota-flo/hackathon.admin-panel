@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-5">
+
+      <nb-card>
+        <nb-card-header>
+          <div class="row">
+            <div class="col-6">
+              Текст ответа
+            </div>
+            <div class="col-6 text-right">
+              <button *ngIf="!isEditMode"
+                      nbButton
+                      outline
+                      (click)="isEditMode = !isEditMode"
+                      size="small">
+                <nb-icon [icon]="'edit-outline'"></nb-icon>
+              </button>
+              <button *ngIf="isEditMode"
+                      nbButton
+                      outline
+                      status="success"
+                      (click)="isEditMode = !isEditMode; review.text = answerForm.value.text"
+                      size="small">
+                <nb-icon [icon]="'checkmark-outline'"></nb-icon>
+              </button>
+            </div>
+          </div>
+        </nb-card-header>
+        <nb-card-body>
+          <form *ngIf="isEditMode" [formGroup]="answerForm">
+            <textarea nbInput fullWidth rows="12" formControlName="text"></textarea>
+          </form>
+
+          <div *ngIf="!isEditMode">
+            {{ review.text }}
+          </div>
+        </nb-card-body>
+        <nb-card-footer class="text-center">
+          <button nbButton
+                  outline
+                  size="small"
+                  status="danger">
+            Отклонить
+          </button>
+          <button nbButton
+                  outline
+                  class="ml-4"
+                  size="small"
+                  status="success">
+            Отправить ответы
+          </button>
+        </nb-card-footer>
+      </nb-card>
+
+    </div>
+    <div class="col-md-7">
+
+      <ngx-request-card *ngFor="let req of review.requests" [request]="req">
+      </ngx-request-card>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+
+.requests-block {
+  display: flex;
+  flex-wrap: no-wrap;
+  overflow-x: auto;
+  padding: 0 20px;
+  ngx-request-card {
+    flex: 0 0 auto;
+    width: auto;
+    max-width: 100%;
+    margin-right: 10px;
+    ::ng-deep {
+      nb-card {
+        box-shadow: rgba(85, 85, 85, 0.1) 0px 7px 29px 0px;
+      }
+    }
+  }
+}

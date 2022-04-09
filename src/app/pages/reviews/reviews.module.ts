@@ -4,11 +4,13 @@ import { SharedModule } from '../../shared/shared.module';
 
 import { ReviewsRoutingModule } from './reviews-routing.module';
 import { ReviewsComponent } from './reviews.component';
+import { ReviewHandlerComponent } from './review-handler/review-handler.component';
 
 
 @NgModule({
   declarations: [
     ReviewsComponent,
+    ReviewHandlerComponent,
   ],
   imports: [
     CommonModule,

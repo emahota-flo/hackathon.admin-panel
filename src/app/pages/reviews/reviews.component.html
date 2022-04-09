@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row">
+  <div class="row mb-3">
     <div class="col-md-6 h5">
       Группы Обработанных Заявок
     </div>
@@ -9,6 +9,41 @@
     </div>
   </div>
 
+  <nb-card *ngFor="let review of reviewGroups">
+    <nb-card-header>
+      <div class="row">
+        <div class="col-6">
+          {{ review.title }}
+        </div>
 
+        <div class="col-6 text-right">
+          <button nbButton
+                  outline
+                  status="success"
+                  (click)="onReview(review)"
+                  size="small">
+            Проверить
+            <nb-icon [icon]="'edit-outline'"></nb-icon>
+          </button>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-md-5 answer">
+          {{ review.text }}
+        </div>
+
+        <div class="col-md-7">
+          <div class="requests-block">
+
+            <ngx-request-card *ngFor="let req of review.requests" [request]="req">
+            </ngx-request-card>
+
+          </div>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
 </div>
 

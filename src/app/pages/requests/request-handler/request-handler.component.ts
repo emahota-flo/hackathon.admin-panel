@@ -38,6 +38,10 @@ export class RequestHandlerComponent extends GlbUnsubscribe implements OnInit {
     this.reqService.selectedRequests
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((reqs: HumanRequest[]) => {
+        if (reqs.length === 0) {
+          this.onBack();
+        }
+
         this.selectedRequests = reqs.map(req => {
           return { ...req, status: 'inProgress' };
         });
