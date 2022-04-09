@@ -1,0 +1,18 @@
+<nb-card>
+  <nb-card-header>
+    Причина отклонения
+  </nb-card-header>
+  <nb-card-body>
+    <textarea nbInput fullWidth [(ngModel)]="text" rows="10" placeholder="Текст тут"></textarea>
+  </nb-card-body>
+  <nb-card-footer>
+    <button class="mr-3 pr-5 pl-5" nbButton status="danger" (click)="cancel()">Отмена</button>
+    <button class="pr-5 pl-5"
+            nbButton
+            status="success"
+            (click)="submit()"
+            [disabled]="!text.length && text.length < 5">
+      Отправить
+    </button>
+  </nb-card-footer>
+</nb-card>

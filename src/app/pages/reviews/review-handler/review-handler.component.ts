@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NbDialogService } from '@nebular/theme';
+import { ModalConfirmComponent } from '../../../shared/components/modal-confirm/modal-confirm.component';
+import { ModalInputComponent } from '../../../shared/components/modal-input/modal-input.component';
 import { Review } from '../reviews.interface';
 import { ReviewsService } from '../reviews.service';
 
@@ -14,9 +17,13 @@ export class ReviewHandlerComponent implements OnInit {
   public isEditMode: boolean = false;
   public review: Review;
   public answerForm: FormGroup;
+
+  public isReviewSent: boolean = false;
+
   constructor(private reviewService: ReviewsService,
               private router: Router,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              public dialogService: NbDialogService) {
 
     this.answerForm = new FormGroup({
       text: new FormControl('', [Validators.required]),
@@ -36,5 +43,27 @@ export class ReviewHandlerComponent implements OnInit {
     this.router.navigate(['pages', 'reviews']).then();
   }
 
+  public cancel() {
+    this.dialogService.open(ModalInputComponent)
+      .onClose
+      .subscribe((message: string) => {
+        if (message) {
+          this.reviewService.cancelReview(this.review, message).subscribe(() => this.isReviewSent = true);
+        }
+      });
+  }
+
+  public onReview() {
+    this.dialogService.open(ModalConfirmComponent, {
+      context: {
+        text: 'Вы уверены, этой действие отправит данный ответ на все прикрепленные жалобы?',
+      },
+    }).onClose
+      .subscribe((isConfirm: boolean) => {
+        if (isConfirm) {
+          this.reviewService.acceptReview(this.review).subscribe(() => this.isReviewSent = true);
+        }
+      });
+  }
 
 }

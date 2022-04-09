@@ -21,4 +21,12 @@ export class ReviewsService {
   public getReviewById(id: string): Review {
     return this.reviews.find(x => x.id === id);
   }
+
+  public cancelReview(review: Review, message: string): Observable<any> {
+    return of(1);
+  }
+
+  public acceptReview(review: Review): Observable<any> {
+    return of(1);
+  }
 }

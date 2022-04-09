@@ -6,6 +6,7 @@ import { ThemeModule } from '../@theme/theme.module';
 import { FormsModule as ngFormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalAnswersComponent } from './components/modal-answers/modal-answer.component';
 import { ModalConfirmComponent } from './components/modal-confirm/modal-confirm.component';
+import { ModalInputComponent } from './components/modal-input/modal-input.component';
 import { NB_MODULES } from './exports/nb-modules';
 import { RequestCardComponent } from './components/request-card/request-card.component';
 
@@ -14,6 +15,7 @@ import { RequestCardComponent } from './components/request-card/request-card.com
     RequestCardComponent,
     ModalConfirmComponent,
     ModalAnswersComponent,
+    ModalInputComponent,
   ],
   imports: [
     ...NB_MODULES,
@@ -39,6 +41,7 @@ import { RequestCardComponent } from './components/request-card/request-card.com
     RequestCardComponent,
     ModalConfirmComponent,
     ModalAnswersComponent,
+    ModalInputComponent,
   ],
 })
 export class SharedModule {

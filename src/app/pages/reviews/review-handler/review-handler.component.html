@@ -1,4 +1,18 @@
-<div class="container">
+<div *ngIf="isReviewSent">
+  <div class="mt-5 pt-5 text-center h5">
+    <div class="text-center">
+      <nb-icon class="checkmark-icon" [icon]="'checkmark-outline'" size="40"></nb-icon>
+    </div>
+    Ответ отправлен!
+    <div class="mt-3" (click)="onBack()">
+      <button nbButton status="primary" size="medium">
+        Вернуться
+      </button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!isReviewSent" class="container">
   <div class="row">
     <div class="col-md-5">
 
@@ -40,6 +54,7 @@
           <button nbButton
                   outline
                   size="small"
+                  (click)="cancel()"
                   status="danger">
             Отклонить
           </button>
@@ -47,6 +62,7 @@
                   outline
                   class="ml-4"
                   size="small"
+                  (click)="onReview()"
                   status="success">
             Отправить ответы
           </button>
