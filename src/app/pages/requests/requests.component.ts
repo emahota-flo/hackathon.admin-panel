@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbDialogService } from '@nebular/theme';
+import { takeUntil } from 'rxjs/operators';
+import { GlbUnsubscribe } from '../../@core/glb-unsubscribe';
 import { ModalConfirmComponent } from '../../shared/components/modal-confirm/modal-confirm.component';
 import { RequestStatus, HumanRequest } from '../../shared/interfaces/request';
 import { RequestsService } from './requests.service';
@@ -10,7 +12,7 @@ import { RequestsService } from './requests.service';
   templateUrl: './requests.component.html',
   styleUrls: ['./requests.component.scss'],
 })
-export class RequestsComponent implements OnInit {
+export class RequestsComponent extends GlbUnsubscribe implements OnInit {
 
   public requests: HumanRequest[] = [];
 
@@ -23,10 +25,12 @@ export class RequestsComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute,
               private dialogService: NbDialogService) {
+    super();
   }
 
   ngOnInit(): void {
     this.reqService.selectedRequests
+      .pipe(takeUntil(this.unsubscribe))
       .subscribe((reqs) => this.selectedRequests = reqs);
 
     this.reqService.getRequests()

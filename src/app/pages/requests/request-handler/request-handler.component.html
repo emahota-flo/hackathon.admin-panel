@@ -1,1 +1,17 @@
-<p>request-handler works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-5">
+      <nb-card>
+        <nb-card-body>
+
+        </nb-card-body>
+      </nb-card>
+    </div>
+    <div class="col-md-7">
+      <ngx-request-card *ngFor="let req of selectedRequests"
+                        [request]="req">
+      </ngx-request-card>
+    </div>
+  </div>
+</div>
+

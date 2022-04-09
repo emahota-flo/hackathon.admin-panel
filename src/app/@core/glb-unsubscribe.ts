@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Component({
-  template: ''
+  template: 'ngx-uns',
 })
 export abstract class GlbUnsubscribe implements OnDestroy {
 
