@@ -31,7 +31,7 @@ export class RequestCardComponent implements OnInit {
       case 'created':
         return 'Создано';
       case 'reject':
-        return 'Отменено';
+        return 'Отменено проверяющим';
       case 'inProgress':
         return 'В обработке';
       case 'readyToReview':

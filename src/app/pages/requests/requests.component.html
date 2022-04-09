@@ -1,16 +1,41 @@
 <div class="container">
-  <div class="h5">Список Заявок</div>
+  <div class="h5">
+    <div class="row">
+      <div class="col-md-6">
+        Список Заявок
+      </div>
+      <div class="col-md-6 text-right">
+        <button nbButton
+                outline
+                (click)="clearFilters()"
+                size="small">
+          Сбросить
+          <nb-icon [icon]="'funnel'"></nb-icon>
+        </button>
+      </div>
+    </div>
+  </div>
 
   <div class="row mb-3">
     <div class="col-md-6 mt-1">
       <button nbButton
               outline
-              [class.selected-tag-red]="selectedStatus === 'created'"
-              (click)="selectStatus('created')"
+              [class.selected-tag-red]="selectedStatus === 'reject'"
+              (click)="selectStatus('reject')"
               status="danger"
               size="small"
               class="mr-2">
-        Не обработанно
+        Не прошло проверку: {{quantityByStatus('reject')}}
+      </button>
+
+      <button nbButton
+              outline
+              [class.selected-tag-orange]="selectedStatus === 'created'"
+              (click)="selectStatus('created')"
+              status="warning"
+              size="small"
+              class="mr-2">
+        Не обработанно: {{quantityByStatus('created')}}
       </button>
 
       <button nbButton
@@ -20,15 +45,9 @@
               status="success"
               size="small"
               class="mr-2">
-        В процессе
+        В процессе: {{quantityByStatus('inProgress')}}
       </button>
-      <button nbButton
-              outline
-              (click)="clearFilters()"
-              size="small">
-        Сбросить
-        <nb-icon [icon]="'funnel'"></nb-icon>
-      </button>
+
     </div>
     <div class="col-md-6 text-right">
       <nb-select multiple placeholder="Фильтр по тегам" [(ngModel)]="selectedTags">
@@ -42,7 +61,7 @@
   <ngx-request-card *ngFor="let req of requests"
                     [request]="req"
                     [selectedTags]="selectedTags"
-                    [hidden]="isFilterByTags(req.tags) || isFilterByStatus(req.status)"
+                    [hidden]="!isFilterByTags(req.tags) || isFilterByStatus(req.status)"
                     (onReq)="selectRequest($event)"
                     [isSelected]="isRequestSelected(req)">
   </ngx-request-card>

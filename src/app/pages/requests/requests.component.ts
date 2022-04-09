@@ -73,6 +73,7 @@ export class RequestsComponent extends GlbUnsubscribe implements OnInit {
     this.selectedTags = [];
     this.reqService.clearSelectedRequests();
   }
+
   /**
    * UI functions
    * */
@@ -83,12 +84,15 @@ export class RequestsComponent extends GlbUnsubscribe implements OnInit {
 
   public isFilterByTags(tags: string[]): boolean {
     if (!this.selectedTags.length) {
-      return false;
+      return true;
     }
 
     let isFilter: boolean = true;
     for (const tag of this.selectedTags) {
-      isFilter = !(tags.includes(tag) && this.selectedTags.length <= tags.length);
+      if (!tags.includes(tag)) {
+        isFilter = false;
+        break;
+      }
     }
 
     return isFilter;
@@ -99,5 +103,9 @@ export class RequestsComponent extends GlbUnsubscribe implements OnInit {
       return false;
     }
     return status !== this.selectedStatus;
+  }
+
+  public quantityByStatus(status: RequestStatus): number {
+    return this.requests.filter(r => r.status === status).length;
   }
 }

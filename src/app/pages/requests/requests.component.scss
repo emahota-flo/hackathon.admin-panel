@@ -1,5 +1,5 @@
 nb-select {
-  min-width: 400px;
+  min-width: 350px;
 }
 .handle-button {
   position: absolute;
@@ -10,6 +10,11 @@ nb-select {
 .selected-tag-green {
   color: #ffffff!important;
   background-color: #00d68f!important;
+}
+
+.selected-tag-orange {
+  color: #ffffff!important;
+  background-color: #ffaa00!important;
 }
 
 .selected-tag-red {
