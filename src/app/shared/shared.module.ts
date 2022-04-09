@@ -4,6 +4,7 @@ import { NbMenuModule, NbTimepickerModule } from '@nebular/theme';
 import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
 import { ThemeModule } from '../@theme/theme.module';
 import { FormsModule as ngFormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalAnswersComponent } from './components/modal-answers/modal-answer.component';
 import { ModalConfirmComponent } from './components/modal-confirm/modal-confirm.component';
 import { NB_MODULES } from './exports/nb-modules';
 import { RequestCardComponent } from './components/request-card/request-card.component';
@@ -12,6 +13,7 @@ import { RequestCardComponent } from './components/request-card/request-card.com
   declarations: [
     RequestCardComponent,
     ModalConfirmComponent,
+    ModalAnswersComponent,
   ],
   imports: [
     ...NB_MODULES,
@@ -36,6 +38,7 @@ import { RequestCardComponent } from './components/request-card/request-card.com
     // components
     RequestCardComponent,
     ModalConfirmComponent,
+    ModalAnswersComponent,
   ],
 })
 export class SharedModule {

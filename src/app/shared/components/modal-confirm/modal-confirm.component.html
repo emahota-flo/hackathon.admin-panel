@@ -4,11 +4,11 @@
   </nb-card-header>
   <nb-card-body>
     <div>
-      {{text || 'Вы уверены что хотите удалить объект?'}}
+      {{ text || 'Вы уверены что хотите удалить объект?'}}
     </div>
   </nb-card-body>
   <nb-card-footer>
-    <button class="cancel" nbButton status="danger" (click)="cancel()">Нет</button>
-    <button nbButton status="success" (click)="submit()">Да</button>
+    <button class="mr-3 pr-5 pl-5" nbButton status="danger" (click)="cancel()">Нет</button>
+    <button class="pr-5 pl-5" nbButton status="success" (click)="submit()">Да</button>
   </nb-card-footer>
 </nb-card>

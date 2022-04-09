@@ -1,0 +1,13 @@
+@import '../../../@theme/styles/themes';
+
+.scroll {
+  height: 600px;
+  overflow-y: scroll!important;
+}
+
+.answer-card {
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+}

@@ -1,0 +1,32 @@
+<nb-card class="m-5">
+
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-6">
+        Заготовки
+      </div>
+
+      <div class="col-md-6 text-right">
+        <button nbButton size="small" (click)="select(null)">
+          <nb-icon [icon]="'close'"></nb-icon>
+        </button>
+      </div>
+    </div>
+  </nb-card-header>
+
+  <nb-card-body class="p-0">
+
+    <div class="scroll p-4">
+      <nb-card class="answer-card"
+                *ngFor="let answer of answers"
+               (click)="select(answer)">
+        <nb-card-body>
+          <div class="h4">Ответ#</div>
+          {{ answer }}
+        </nb-card-body>
+      </nb-card>
+    </div>
+
+
+  </nb-card-body>
+</nb-card>

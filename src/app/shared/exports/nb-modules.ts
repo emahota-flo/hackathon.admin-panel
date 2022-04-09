@@ -7,7 +7,7 @@ import {
   NbDatepickerModule,
   NbFormFieldModule,
   NbIconModule,
-  NbInputModule,
+  NbInputModule, NbListModule,
   NbMenuModule,
   NbRadioModule,
   NbRouteTabsetModule,
@@ -42,5 +42,5 @@ export const NB_MODULES = [
   NbFormFieldModule,
   NbAlertModule,
   NbTabsetModule,
-  // NbTagModule,
+  NbListModule,
 ];

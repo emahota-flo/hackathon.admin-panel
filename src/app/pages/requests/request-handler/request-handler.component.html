@@ -1,8 +1,57 @@
-<div class="container">
+<div *ngIf="isSentRequests">
+  <div class="mt-5 pt-5 text-center h5">
+    <div class="text-center">
+      <nb-icon class="checkmark-icon" [icon]="'checkmark-outline'" size="40"></nb-icon>
+    </div>
+    Ответ отправлен на проверку!
+    <div class="mt-3" (click)="onBack()">
+      <button nbButton status="primary" size="medium">
+        Вернуться
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="!isSentRequests">
   <div class="row">
     <div class="col-md-5">
       <nb-card>
+        <nb-card-header>
+          <div class="row">
+            <div class="col-md-6">Ответ</div>
+            <div class="col-md-6 text-right">
+              <button nbButton outline
+                      size="small"
+                      (click)="showTypicalAnswers()"
+                      status="success">
+                Заготовки
+              </button>
+            </div>
+          </div>
+        </nb-card-header>
         <nb-card-body>
+          <form [formGroup]="answerForm">
+
+            <label>Название группы</label>
+            <input nbInput fullWidth formControlName="title" class="mb-3" placeholder="Кратко о группе">
+
+            <label>Текст ответа</label>
+            <textarea nbInput
+                      fullWidth
+                      formControlName="text"
+                      rows="12"
+                      placeholder="Максимальная кол-во символов 5000">
+            </textarea>
+
+            <div class="text-center mt-3">
+              <button nbButton
+                      status="primary"
+                      (click)="onReview()"
+                      [disabled]="answerForm.invalid">
+                Отправить
+              </button>
+            </div>
+          </form>
 
         </nb-card-body>
       </nb-card>
