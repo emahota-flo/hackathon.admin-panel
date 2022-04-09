@@ -11,6 +11,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/requests',
   },
   {
+    title: 'На проверке',
+    icon: 'edit-2-outline',
+    link: '/pages/reviews',
+  },
+  {
     title: 'Профиль',
     icon: 'person-outline',
     link: '/pages/profile',

@@ -20,6 +20,11 @@ const routes: Routes = [{
         .then(m => m.RequestsModule),
     },
     {
+      path: 'reviews',
+      loadChildren: () => import('./reviews/reviews.module')
+        .then(m => m.ReviewsModule),
+    },
+    {
       path: '',
       redirectTo: 'profile',
       pathMatch: 'full',
