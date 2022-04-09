@@ -11,4 +11,5 @@
 export const environment = {
   production: false,
   apiUrl: 'http://185.246.67.100/api/v1/',
+  defaultTheme: 'default',
 };
