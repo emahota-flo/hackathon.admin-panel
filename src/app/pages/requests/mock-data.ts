@@ -2,7 +2,7 @@ import { HumanRequest } from '../../shared/interfaces/request';
 
 export const mockRequests: HumanRequest[] = [
   {
-    id: '1111111',
+    requestId: '1111111',
     type: 'complaint',
     status: 'created',
     tags: ['скорость обслуживания'],
@@ -11,10 +11,10 @@ export const mockRequests: HumanRequest[] = [
     createdAt: new Date(),
     updatedAt: new Date(),
     city: 'Краснодар',
-    institution: 'Краевая больница',
+    organization: 'Краевая больница',
   },
   {
-    id: '2222222',
+    requestId: '2222222',
     type: 'complaint',
     status: 'inProgress',
     tags: ['жалоба на сотрудника', 'некорректное общение', 'оскорбления'],
@@ -23,10 +23,10 @@ export const mockRequests: HumanRequest[] = [
     createdAt: new Date(),
     updatedAt: new Date(),
     city: 'Краснодар',
-    institution: 'Краевая больница',
+    organization: 'Краевая больница',
   },
   {
-    id: '33333333',
+    requestId: '33333333',
     type: 'complaint',
     status: 'created',
     tags: ['некорректные результаты работы', 'оскорбления'],
@@ -35,10 +35,10 @@ export const mockRequests: HumanRequest[] = [
     createdAt: new Date(),
     updatedAt: new Date(),
     city: 'Краснодар',
-    institution: 'Краевая больница',
+    organization: 'Краевая больница',
   },
   {
-    id: '444444',
+    requestId: '444444',
     type: 'complaint',
     status: 'reject',
     tags: ['скорость обработки', 'дети', 'жалоба на сотрудника'],
@@ -47,10 +47,10 @@ export const mockRequests: HumanRequest[] = [
     createdAt: new Date(),
     updatedAt: new Date(),
     city: 'Краснодар',
-    institution: 'Краевая больница',
+    organization: 'Краевая больница',
   },
   {
-    id: '555555',
+    requestId: '555555',
     type: 'complaint',
     status: 'reject',
     tags: ['скорость обработки', 'дети', 'жалоба на сотрудника'],
@@ -59,7 +59,7 @@ export const mockRequests: HumanRequest[] = [
     createdAt: new Date(),
     updatedAt: new Date(),
     city: 'Краснодар',
-    institution: 'Краевая больница',
+    organization: 'Краевая больница',
   },
 ];
 

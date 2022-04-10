@@ -6,7 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { GlbUnsubscribe } from '../../../@core/glb-unsubscribe';
 import { ModalAnswersComponent } from '../../../shared/components/modal-answers/modal-answer.component';
 import { HumanRequest } from '../../../shared/interfaces/request';
-import { AnswersService } from '../../../shared/services/answers.service';
+import { APIService } from '../../../shared/services/api.service';
 import { RequestsService } from '../requests.service';
 
 @Component({
@@ -25,7 +25,7 @@ export class RequestHandlerComponent extends GlbUnsubscribe implements OnInit {
 
   constructor(private reqService: RequestsService,
               private dialogService: NbDialogService,
-              private answersService: AnswersService,
+              private apiService: APIService,
               private router: Router) {
     super();
     this.answerForm = new FormGroup({
@@ -47,7 +47,7 @@ export class RequestHandlerComponent extends GlbUnsubscribe implements OnInit {
         });
       });
 
-    this.answersService.getAnswers()
+    this.apiService.getAnswers()
       .subscribe((answers: string[]) => this.typicalAnswers = answers);
   }
 

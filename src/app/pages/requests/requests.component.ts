@@ -5,6 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import { GlbUnsubscribe } from '../../@core/glb-unsubscribe';
 import { ModalConfirmComponent } from '../../shared/components/modal-confirm/modal-confirm.component';
 import { RequestStatus, HumanRequest } from '../../shared/interfaces/request';
+import { APIService } from '../../shared/services/api.service';
 import { RequestsService } from './requests.service';
 
 @Component({
@@ -21,10 +22,13 @@ export class RequestsComponent extends GlbUnsubscribe implements OnInit {
   public selectedTags: string[] = [];
   public selectedStatus: RequestStatus | null = null;
 
-  constructor(private reqService: RequestsService,
-              private router: Router,
-              private route: ActivatedRoute,
-              private dialogService: NbDialogService) {
+  constructor(
+    private reqService: RequestsService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private dialogService: NbDialogService,
+    private apiService: APIService,
+  ) {
     super();
   }
 
@@ -33,8 +37,13 @@ export class RequestsComponent extends GlbUnsubscribe implements OnInit {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((reqs) => this.selectedRequests = reqs);
 
-    this.reqService.getRequests()
+    this.reqService.getRequestsMock().subscribe((data) => {
+      /* tslint:disable */
+      console.log(data);
+    });
+    this.apiService.getRequests()
       .subscribe((reqs: HumanRequest[]) => {
+        console.log(reqs);
         this.requests = reqs;
 
         const tags = new Set();
@@ -79,7 +88,7 @@ export class RequestsComponent extends GlbUnsubscribe implements OnInit {
    * */
 
   public isRequestSelected(req: HumanRequest): boolean {
-    return !!this.selectedRequests.find(x => x.id === req.id);
+    return !!this.selectedRequests.find(x => x.requestId === req.requestId);
   }
 
   public isFilterByTags(tags: string[]): boolean {
