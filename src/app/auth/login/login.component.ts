@@ -27,10 +27,12 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.isLoading = true;
-    this.authService.login(this.loginForm.value)
-      .pipe(finalize(() => this.isLoading = false))
-      .subscribe();
+    // this.isLoading = true;
+    // this.authService.login(this.loginForm.value)
+    //   .pipe(finalize(() => this.isLoading = false))
+    //   .subscribe();
+
+    this.router.navigate(['pages']).then();
   }
 
   public onRestore() {
