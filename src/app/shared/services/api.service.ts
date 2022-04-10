@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { mockAnswers } from '../../pages/requests/mock-data';
+import { ReviewBody } from '../../pages/requests/requests.service';
+import { Review } from '../../pages/reviews/reviews.interface';
 import { HumanRequest } from '../interfaces/request';
 
 @Injectable({
@@ -30,5 +31,13 @@ export class APIService {
 
   public getRequests(): Observable<HumanRequest[]> {
     return this.http.get<HumanRequest[]>(`${this.apiUrl}admin/human-requests`);
+  }
+
+  public createReview(body: ReviewBody): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}admin/reviews/`, body);
+  }
+
+  getReviewGroups(): Observable<Review[]> {
+    return this.http.get<Review[]>(`${this.apiUrl}admin/reviews/`);
   }
 }

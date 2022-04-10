@@ -37,13 +37,8 @@ export class RequestsComponent extends GlbUnsubscribe implements OnInit {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((reqs) => this.selectedRequests = reqs);
 
-    this.reqService.getRequestsMock().subscribe((data) => {
-      /* tslint:disable */
-      console.log(data);
-    });
     this.apiService.getRequests()
       .subscribe((reqs: HumanRequest[]) => {
-        console.log(reqs);
         this.requests = reqs;
 
         const tags = new Set();

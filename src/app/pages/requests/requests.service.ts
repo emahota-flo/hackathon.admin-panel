@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { APIService } from '../../shared/services/api.service';
-import { mockRequests } from './mock-data';
 import { HumanRequest } from '../../shared/interfaces/request';
 
 export interface ReviewBody {
@@ -37,11 +36,7 @@ export class RequestsService {
     this.selectedRequests.next([]);
   }
 
-  public getRequestsMock(): Observable<HumanRequest[]> {
-    return of(mockRequests);
-  }
-
   public onReview(body: ReviewBody): Observable<void> {
-    return of(null);
+    return this.apiService.createReview(body);
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { APIService } from '../../shared/services/api.service';
 import { Review } from './reviews.interface';
 import { ReviewsService } from './reviews.service';
 

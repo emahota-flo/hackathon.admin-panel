@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { APIService } from '../../shared/services/api.service';
 import { mockReviews } from './mock-data';
 import { Review } from './reviews.interface';
 
@@ -10,12 +12,17 @@ export class ReviewsService {
 
   public reviews: Review[] = [];
 
-  constructor() {
+  constructor(
+    private apiService: APIService,
+  ) {
   }
 
   public getReviewGroup(): Observable<Review[]> {
-    this.reviews = mockReviews;
-    return of(mockReviews);
+    return this.apiService.getReviewGroups().pipe(
+      tap((reviewGroups) => {
+        this.reviews = reviewGroups;
+        return reviewGroups;
+      }));
   }
 
   public getReviewById(id: string): Review {
