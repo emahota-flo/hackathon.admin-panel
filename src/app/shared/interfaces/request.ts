@@ -12,4 +12,5 @@ export interface HumanRequest {
   updatedAt: Date;
   city: string;
   organization: string;
+  cancelMessage?: string;
 }

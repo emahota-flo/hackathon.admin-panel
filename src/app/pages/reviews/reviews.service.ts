@@ -1,7 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 import { APIService } from '../../shared/services/api.service';
+import { ReviewBody } from '../requests/requests.service';
 import { mockReviews } from './mock-data';
 import { Review } from './reviews.interface';
 
@@ -14,6 +17,7 @@ export class ReviewsService {
 
   constructor(
     private apiService: APIService,
+    private http: HttpClient,
   ) {
   }
 
@@ -29,11 +33,16 @@ export class ReviewsService {
     return this.reviews.find(x => x.id === id);
   }
 
-  public cancelReview(review: Review, message: string): Observable<any> {
-    return of(1);
+
+  public cancelReview(review: Review, message: string): Observable<void> {
+    JSON.stringify({ ...review, cancelMessage: message });
+    return this.http.post<void>(`${environment.apiUrl}admin/rejectReview`,
+      { ...review, cancelMessage: message },
+    );
   }
 
   public acceptReview(review: Review): Observable<any> {
-    return of(1);
+    JSON.stringify(review);
+    return this.http.post<void>(`${environment.apiUrl}admin/completeRequest`, review);
   }
 }

@@ -17,6 +17,10 @@
 
     {{ request.description }}
 
+    <div class="errorMessage mt-3" *ngIf="request.cancelMessage">
+      Причина отмены: {{ request.cancelMessage }}
+    </div>
+
     <div class="mt-3">
       <button nbButton *ngFor="let tag of request.tags"
               [class.selected-tag]="isTagSelected(tag)"
