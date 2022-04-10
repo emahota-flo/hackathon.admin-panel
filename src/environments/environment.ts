@@ -10,6 +10,6 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000/local/api/',
+  apiUrl: 'https://6eb7-46-18-203-145.ngrok.io/local/api/',
   defaultTheme: 'default',
 };
