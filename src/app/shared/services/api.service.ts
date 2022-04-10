@@ -17,8 +17,15 @@ export class APIService {
     this.apiUrl = environment.apiUrl;
   }
 
-  public getAnswers(): Observable<string[]> {
-    return of(mockAnswers);
+  public updateRequest(requestId: string, body: Partial<HumanRequest>): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}admin/human-requests/${requestId}`, body);
+  }
+
+  public getAnswersByTags(tags: string[]): Observable<string[]> {
+    if (!tags?.length) {
+      return of([]);
+    }
+    return this.http.get<string[]>(`${this.apiUrl}admin/answers?tags=${tags}`);
   }
 
   public getRequests(): Observable<HumanRequest[]> {

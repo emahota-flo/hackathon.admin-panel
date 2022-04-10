@@ -43,11 +43,15 @@ export class RequestHandlerComponent extends GlbUnsubscribe implements OnInit {
         }
 
         this.selectedRequests = reqs.map(req => {
+          this.apiService.updateRequest(req.requestId, { status: 'inProgress'}).subscribe();
           return { ...req, status: 'inProgress' };
         });
       });
-
-    this.apiService.getAnswers()
+    const tags = this.selectedRequests.reduce((acc, req) => {
+      acc.push(...req.tags);
+      return acc;
+    }, []);
+    this.apiService.getAnswersByTags(tags)
       .subscribe((answers: string[]) => this.typicalAnswers = answers);
   }
 
